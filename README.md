@@ -20,6 +20,6 @@ int foo {
 ```
 **Вывод:** 
 
-##![](https://github.com/Kera-0/test/blob/main/%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0.PNG)
-##![](https://github.com/Kera-0/test/blob/main/%D1%86%D0%B9%D1%86%D0%B9%D1%86%D0%B9.PNG)
+![](https://github.com/Kera-0/test/blob/main/%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0.PNG)
+![](https://github.com/Kera-0/test/blob/main/%D1%86%D0%B9%D1%86%D0%B9%D1%86%D0%B9.PNG)
 
