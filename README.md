@@ -10,4 +10,5 @@ int main {
 
 }
 ```
+**Вывод**
 ![](https://github.com/Kera-0/test/blob/main/%D0%A4%D0%AB%D0%A4%D0%AB%D0%A4%D0%AB%D0%92%D0%AB.PNG)
