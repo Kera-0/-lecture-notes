@@ -23,3 +23,23 @@ int foo {
 ![](https://github.com/Kera-0/test/blob/main/%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B0.PNG)
 ![](https://github.com/Kera-0/test/blob/main/%D1%86%D0%B9%D1%86%D0%B9%D1%86%D0%B9.PNG)
 
+*4. int пишем перед main т.к она возращает число.*
+
+
+
+*5. возращает одно и тоже*
+```C++
+int main () {
+    return 0;
+}
+```
+```C++
+int main () {
+    
+}
+```
+*6. Через return, повилось понимать, что  программа завершилась успешно,елси она возращает 0 код, и другое в ином случае.*
+
+*7. `#include <iostrem>` - для доступа к механизмам ввода (как import в питоне)*
+
+1. `std::cin`
