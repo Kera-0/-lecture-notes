@@ -152,3 +152,19 @@ do {
 
 
 </details>
+
+<details><summary>Лекция 3</summary>
+  
+  ![](https://github.com/Kera-0/-lecture-notes/blob/main/32312.PNG)
+
+
+
+
+
+
+
+
+
+
+  
+</details>
