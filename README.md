@@ -53,6 +53,52 @@
 
   *8) `if` должен быть с `()` и из-за отсутсвия `{}` могут быть ошибки*
 
+  **Пример:**
+```C++
+#include <iostrem>
+int main() {
+    int a;
+    std::cin >> a;
+    if (a % 2 == 0) {
+        std::cout << a << "even\n";
+    } else {
+        std::cout << a << "odd\n";
+    }
+}
+
+```
+*9) bool отвечают только за `true` и `false`*
+
+10) Разница `a++` и `++a`;
+```C++
+#include <iostrem>
+int main() {
+    int a = 123;
+    std::cout << a++;    
+}
+```
+
+**Вывод: 123** 
+
+```C++
+#include <iostrem>
+int main() {
+    int a = 123;
+    std::cout << ++a;    
+}
+```
+
+**Вывод: 124** 
+
+11) цикл
+```
+#include <iostrem>
+int main() {
+    int a = 123;
+    std::cout << ++a;    
+}
+```
+
 
 
 
