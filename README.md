@@ -292,6 +292,6 @@ std::string& ref = const_cast<std::string&>(name);
 
 2)`sizeof(k)` найти размер элемента\структуры в байтах
 
-
+3) найти размер массива `sizeof(arr) / sizeof(arr)[0]`
 
 </details>
