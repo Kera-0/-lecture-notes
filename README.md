@@ -294,4 +294,6 @@ std::string& ref = const_cast<std::string&>(name);
 
 3) найти размер массива `sizeof(arr) / sizeof(arr)[0]` или `std::size(arr)`
 
+4) чтобы передать массив ссылкой в функцию нужно `void foo (const int (&arr)[размер])`
+
 </details>
