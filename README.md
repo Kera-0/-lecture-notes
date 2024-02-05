@@ -311,4 +311,5 @@ std::string& ref = const_cast<std::string&>(name);
    ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2012.PNG)
 
 8) сортировка массива `std::sort(&arr[0], &arr[0] + std::size(arr))` первый указатель на начало массива второй на элемент **после** последнего
+9) `const int* begin` это читаеться как указатель на константный инт, то есть ` begin` не константа его можно менять, но на то куда указывает `begin` это константа
 </details>
