@@ -335,6 +335,9 @@ a = '10'
   char str[] = {'H', 'e'};
   }
 ```
+2) компактный вывод строки
+![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2013.PNG)
 
+это работает т.к каждая строка в С++ заканчиваеться на `\0`
 </details>
 
