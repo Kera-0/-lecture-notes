@@ -269,5 +269,5 @@ do {
 const std::string name = "a";
 std::string& ref = const_cast<std::string&>(name);
 ```
-теперь `ref` это тоже самое, что `name`, только `ref` можно менять
+теперь `ref` это тоже самое, что `name`, только `ref` можно менять(name тоже поменяеться)
 </details>
