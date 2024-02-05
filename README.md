@@ -186,7 +186,7 @@ do {
    fraction отвечает за числа после запятой
    
    12) вывод вещественного числа 
-  `std::cout << std::fixed << std::setpe 
+  `std::cout << std::fixed << std::precision(i) << x; ` вывод числа x с i знаками после запятой
 
 
 
