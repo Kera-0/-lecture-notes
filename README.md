@@ -279,3 +279,8 @@ std::string& ref = const_cast<std::string&>(name);
 
      3)чтобы передать переменную в функцию вида `void dup(std::string* ref)` нужно делать так `dup(&ref)`
 </details>
+10) можно использовать одну функцию для разных типов данных программа будет понимать,что использоватьб по элементам которуе передаються функции
+
+![](https://github.com/Kera-0/-lecture-notes/blob/main/git%209.PNG)
+
+
