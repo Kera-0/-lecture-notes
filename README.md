@@ -262,7 +262,7 @@ do {
 7) Чтобы нельзя было менять нужно писать `const std::string& name`
 
   
-</details>
+
 8) чтобы отбросить константность нужно
 
 ```C++
@@ -270,3 +270,4 @@ const std::string name = "a";
 std::string& ref = const_cast<std::string&>(name);
 ```
 теперь `ref` это тоже самое, что `name`, только `ref` можно менять
+</details>
