@@ -308,5 +308,7 @@ std::string& ref = const_cast<std::string&>(name);
 
 7) вывод массива
 
-   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2012.PNG)  
+   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2012.PNG)
+
+8) сортировка массива `std::sort(&arr[0], &arr[0] + std::size(arr))` первый указатель на начало массива второй на элемент **после** последнего
 </details>
