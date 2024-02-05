@@ -263,3 +263,10 @@ do {
 
   
 </details>
+8) чтобы отбросить константность нужно
+
+```C++
+const std::string name = "a";
+std::string& ref = const_cast<std::string&>(name);
+```
+теперь `ref` это тоже самое, что `name`, только `ref` можно менять
