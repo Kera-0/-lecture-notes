@@ -236,6 +236,8 @@ do {
 
  ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%206.PNG)
 
+5) Передача аргументов в функцию
+ ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%207.PNG)
 
 
 
