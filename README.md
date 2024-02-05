@@ -241,8 +241,9 @@ do {
 
  ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%207.PNG)
 
-**Вывод: Hello, Bob!
-        word**
+**Вывод: Hello, Bob!**
+        
+  **world**
 
 
 
