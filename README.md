@@ -156,14 +156,21 @@ do {
 <details><summary>Лекция 3</summary>
   
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/32312.PNG)
+  
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%201.PNG)
+  
   1) `auto` - автоматическое определенние типа
 
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%202.PNG)
+  
   2) нельзя `void n = 5`
+  
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%203.PNG)
+  
   3) байт - минимальная адресуемая единица памяти
+  
   4) `signed` - число со знаком, `unsigned` - без знаковое число
+  
   5) 
 
 
