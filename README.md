@@ -299,5 +299,14 @@ std::string& ref = const_cast<std::string&>(name);
 5) чтобы использовать удобный синтаксис можно vector
 
 ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2010.PNG)   
-   
+
+6) Передать массив c произвольным размером
+
+![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2011.PNG)  
+
+это работает т.к `arr[i]` это тоже самое, что и `*(arr + i)` это есть мы двигаем указатель на i*sizeof(i) байт 
+
+7) вывод массива
+
+   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2012.PNG)  
 </details>
