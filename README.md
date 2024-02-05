@@ -250,7 +250,9 @@ Hello, Bob!**
 Функция создает, копию аргумента name(она остаеться в в нутри функции и не меняеться в main) это плохо т.к мы тратим 2 раза больше памяти и тратим ресурсы процессора на копирование
 
 6)Чтобы не крпировать нужно использовать `&`, однако внутри функции ее можно будет поменять
-![]([https://github.com/Kera-0/-lecture-notes/blob/main/git%207.PNG](https://github.com/Kera-0/-lecture-notes/blob/main/git%208.PNG)https://github.com/Kera-0/-lecture-notes/blob/main/git%208.PNG)
+
+![](https://github.com/Kera-0/-lecture-notes/blob/main/git%208.PNG)
+
 **Вывод: 
 
 Hello, Bob!**
