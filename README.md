@@ -228,13 +228,13 @@ do {
             return a + b
         }
 ```
-4) Писать функции нужно до `int main() {}`
+4) Писать функции нужно до `int main() {}`, однако функции можно объявить до программы, но ее функционал написать после
 
 
 
 
 
-5) ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%206.PNG)
+ ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%206.PNG)
 
 
 
