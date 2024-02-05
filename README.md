@@ -258,7 +258,7 @@ do {
 **Hello, Bob!**
         
   **Bob**
-
+7) Чтобы нельзя было менять нужно писать `const std::string& name`
 
   
 </details>
