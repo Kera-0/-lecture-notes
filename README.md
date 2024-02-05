@@ -296,4 +296,8 @@ std::string& ref = const_cast<std::string&>(name);
 
 4) чтобы передать массив ссылкой в функцию нужно `void foo (const int (&arr)[размер])`
 
+5) чтобы использовать удобный синтаксис можно vector
+
+![](https://github.com/Kera-0/-lecture-notes/blob/main/git%2010.PNG)   
+   
 </details>
