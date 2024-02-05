@@ -156,6 +156,8 @@ do {
 <details><summary>Лекция 3</summary>
   
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/32312.PNG)
+
+  0) в С++
   
   ![](https://github.com/Kera-0/-lecture-notes/blob/main/git%201.PNG)
   
