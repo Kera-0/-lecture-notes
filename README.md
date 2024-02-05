@@ -286,4 +286,11 @@ std::string& ref = const_cast<std::string&>(name);
 
 </details>
 
+<details><summary>Лекция 5</summary>
+1) `int name[10] = {}` создать массив из 10 элементов и заполнить его нулями
 
+2)`sizeof(k)` найти размер элемента\структуры в байтах
+
+
+
+</details>
