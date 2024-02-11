@@ -344,7 +344,29 @@ a = '10'
 
 3) `strlen(i)` - длина строки i
 4) `strcmp(i,i1)` - функция стравнивает две строки лексиграфически ввыводит 1 `i > i1` 0 `i = i1` -1 `i < i1`
+5) структуры объект данных,который может хранить разные типы.
 
+   
+**Пример:**
+```С++
+struct Cstring {
+    const char* begin; #создаем структуру данных
+    size_t size;
 
+};
+int Out(const Cstring& str) {
+    for (size_t i = 0;i<str.size;++i) { 
+        std::cout<< str.begin[i];
+    }
+}
+int main() {
+    Cstring k;
+    k.begin = "aascxcx";
+    k.size = strlen("aascxcx");
+    Out(k);
+}
+```
+**Вывод:**
+`aascxcx`
 </details>
 
