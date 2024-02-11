@@ -348,9 +348,9 @@ a = '10'
 
    
 **Пример:**
-```С++
+```C++
 struct Cstring {
-    const char* begin; #создаем структуру данных
+    const char* begin; 
     size_t size;
 
 };
