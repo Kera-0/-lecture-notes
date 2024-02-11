@@ -360,7 +360,7 @@ int Out(const Cstring& str) {
     }
 }
 int main() {
-    Cstring k;
+    Cstring k; # или Cstring k {"aascxcx", 7}
     k.begin = "aascxcx";
     k.size = strlen("aascxcx");
     Out(k);
