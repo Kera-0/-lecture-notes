@@ -355,8 +355,8 @@ struct Cstring {
 
 };
 int Out(const Cstring& str) {
-    for (size_t i = 0;i<str.size;++i) { 
-        std::cout<< str.begin[i];
+    for (size_t i = 0;i < str.size; ++i) { 
+        std::cout << str.begin[i];
     }
 }
 int main() {
