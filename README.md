@@ -368,5 +368,7 @@ int main() {
 ```
 **Вывод:**
 `aascxcx`
+
+6) `const char* ptr = "abcd"` указатель  на первый элемент строчки
 </details>
 
