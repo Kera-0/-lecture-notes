@@ -20,6 +20,238 @@ private:
         numer_ = numer_ / abs(nod1);
     }
 public:
+    Rational() {
+
+    }
+    Rational(int  num, int den) {
+        numer_ = num;
+        denom_ = den;
+    }
+    Rational(int num) {
+        numer_ = num;
+        denom_ = 1;
+    }
+    int GetNumerator() const {
+        return numer_;
+    }
+    int GetDenominator() const {
+        return denom_;
+    }
+    void SetNumerator(int value) {
+        numer_ = value;
+    }
+    void SetDenominator(int value) {
+        denom_ = value;
+    }
+    friend Rational& operator+=(Rational& lhs, const Rational& rhs);
+    friend std::ostream& operator<<(std::ostream& out, Rational& a);
+    friend Rational operator/(const Rational& lhs, const Rational& rhs);
+    friend Rational operator*(const Rational& lhs, const Rational& rhs);
+    friend Rational operator++(Rational& ratio, int);
+    friend Rational operator--(Rational& ratio, int);
+    friend Rational operator+(const Rational& lhs, const Rational& rhs);
+    friend Rational operator-(const Rational& lhs, const Rational& rhs);
+    friend bool operator<(const Rational& lhs, const Rational& rhs);
+    friend bool operator>(const Rational& lhs, const Rational& rhs);
+    friend bool operator==(const Rational& lhs, const Rational& rhs);
+    friend bool operator<=(const Rational& lhs, const Rational& rhs);
+    friend bool operator>=(const Rational& lhs, const Rational& rhs);
+    friend bool operator!=(const Rational& lhs, const Rational& rhs);
+    friend std::istream& operator>>(std::istream& is, Rational& ratio);
+    friend Rational& operator++(Rational& ratio);
+    friend Rational& operator--(Rational& ratio);
+    friend Rational& operator/=(Rational& lhs, const Rational& rhs);
+    friend Rational& operator*=(Rational& lhs, const Rational& rhs);
+};
+Rational& operator*=(Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.numer_;
+    int b = lhs.denom_ * rhs.denom_;
+    Rational ans(a,b);
+    ans.Set(ans.numer_,ans.denom_);
+    lhs.numer_ = ans.numer_;
+    lhs.denom_ = ans.denom_;
+    return lhs;
+}
+Rational& operator/=(Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    Rational ans(a,b);
+    ans.Set(ans.numer_,ans.denom_);
+    lhs.numer_ = ans.numer_;
+    lhs.denom_ = ans.denom_;
+    return lhs;
+}
+
+Rational& operator--(Rational& ratio) {
+    ratio.numer_ -= ratio.denom_;
+    return ratio;
+}
+Rational& operator++(Rational& ratio) {
+    ratio.numer_ += ratio.denom_;
+    return ratio;
+}
+Rational& operator+=(Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    Rational ans(a + b, rhs.denom_ * lhs.denom_);
+    ans.Set(ans.numer_,ans.denom_);
+    lhs.numer_ = ans.numer_;
+    lhs.denom_ = ans.denom_;
+    return lhs;
+}
+bool operator<(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a < b;
+}
+bool operator>(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a > b;
+}
+bool operator==(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a == b;
+}
+bool operator>=(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a >= b;
+}
+bool operator<=(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a <= b;
+}
+bool operator!=(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    return a != b;
+}
+Rational operator+(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    Rational ans(a + b, rhs.denom_ * lhs.denom_);
+    ans.Set(ans.numer_,ans.denom_);
+    return ans;
+}
+Rational operator-(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    Rational ans(a - b, rhs.denom_ * lhs.denom_);
+    ans.Set(ans.numer_,ans.denom_);
+    return ans;
+}
+Rational operator--(Rational& ratio, int) {
+    ratio.numer_ -= ratio.denom_;
+    return ratio;
+}
+Rational operator++(Rational& ratio, int)  {
+    ratio.numer_ += ratio.denom_;
+    return ratio;
+}
+Rational operator*(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.numer_;
+    int b = lhs.denom_ * rhs.denom_;
+    Rational ans(a,b);
+    ans.Set(ans.numer_,ans.denom_);
+    return ans;
+}
+Rational operator/(const Rational& lhs, const Rational& rhs) {
+    int a = lhs.numer_ * rhs.denom_;
+    int b = lhs.denom_ * rhs.numer_;
+    Rational ans(a,b);
+    ans.Set(ans.numer_,ans.denom_);
+    return ans;
+}
+std::ostream& operator<<(std::ostream& os, Rational& a) {
+    a.Set(a.numer_,a.denom_);
+    os << a.numer_ << "/" << a.denom_;
+    return os;
+}
+std::istream& operator>>(std::istream& is, Rational& ratio) {
+    is>>ratio.numer_>>ratio.denom_;
+    return is;
+}
+int main() {
+
+    Rational a = Rational(12, 4);
+    Rational b = Rational(56);
+    b/=a;
+    a++;
+    ++a;
+    a+=b;
+    b=a-b+a-b+2*b;
+    std::cout <<b;
+    Rational c;
+    std::cin>>c;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <cmath>
+
+class Rational {
+private:
+    int numer_;
+    int denom_;
+    void Set(int numer, int denom) {
+        int nod = std::min(numer, denom);
+        int nod1 = std::max(numer, denom);
+        while (nod != 0) {
+            int help;
+            help = nod;
+            nod1 = nod1 % nod;
+            nod = help;
+            nod = nod1;
+            nod1 = help;
+        }
+        denom_ = denom_ / abs(nod1);
+        numer_ = numer_ / abs(nod1);
+    }
+public:
     Rational()=default;
     Rational(int  num, int den) {
         numer_ = num;
