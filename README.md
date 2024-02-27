@@ -1,3 +1,4 @@
+```C++
 #include <iostream>
 #include <cmath>
 
@@ -188,7 +189,7 @@ int main() {
     std::cin>>c;
 
 }
-
+```
 
 
 
