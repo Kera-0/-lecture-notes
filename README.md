@@ -1,4 +1,57 @@
 ```C++
+#include "stack.h"
+#include <iostream>
+
+Node::Node(int32_t value, Node *previous) {
+    Node::value = value;
+    Node::previous = previous;
+}
+Stack::Stack() {
+    head_ = nullptr;
+    size_ = 0;
+}
+Stack::~Stack() {
+    size_ = 0;
+    while (head_ != nullptr) {
+        Node *del_element = head_;
+        head_ = del_element->previous;
+        delete del_element;
+    }
+}
+void Stack::Push(int32_t value) {
+    Node *new_element_ptr = new Node(value, head_);
+    head_ = new_element_ptr;
+    ++size_;
+}
+void Stack::Pop() {
+    if (head_ != nullptr) {
+        Node *del_element = head_;
+        head_ = del_element->previous;
+        delete del_element;
+        --size_;
+    }
+}
+int32_t Stack::Top() const {
+    return head_->value;
+}
+int32_t Stack::Size() const {
+    return size_;
+}
+void Stack::Clear() {
+    size_ = 0;
+    while (head_ != nullptr) {
+        Node *del_element = head_;
+        head_ = del_element->previous;
+        delete del_element;
+    }
+}
+bool Stack::Empty() const {
+    return head_ == nullptr;
+}
+```
+
+
+```C++
 #include <iostream>
 #include <cmath>
 #include "rational.h"
