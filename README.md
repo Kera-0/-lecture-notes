@@ -46,8 +46,7 @@ int64_t Rational::GetNumerator() const {
     return numer_;
 }
 int64_t Rational::GetDenominator() const {
-
-    return std::abs(denom_);
+    return denom_;
 }
 void Rational::SetNumerator(int64_t value) {
     numer_ = value;
@@ -163,13 +162,13 @@ Rational operator-(const Rational& lhs, const Rational& rhs) {
 Rational operator--(Rational& ratio, int) {
     Rational ans(ratio.GetNumerator() - ratio.GetDenominator(), ratio.GetDenominator());
     ratio.SetNumerator(ans.GetNumerator());
-    ratio.SetNumerator(ans.GetDenominator());
+    ratio.SetDenominator(ans.GetDenominator());
     return ratio;
 }
 Rational operator++(Rational& ratio, int) {
     Rational ans(ratio.GetNumerator() + ratio.GetDenominator(), ratio.GetDenominator());
     ratio.SetNumerator(ans.GetNumerator());
-    ratio.SetNumerator(ans.GetDenominator());
+    ratio.SetDenominator(ans.GetDenominator());
     return ratio;
 }
 Rational operator*(const Rational& lhs, const Rational& rhs) {
@@ -219,6 +218,7 @@ Rational& operator-=(Rational& lhs, const Rational& rhs) {
     lhs.SetDenominator(ans.GetDenominator());
     return lhs;
 }
+
 ```
 
 
