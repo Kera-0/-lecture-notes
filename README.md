@@ -1,6 +1,201 @@
 ```C++
 #include <iostream>
 #include <cmath>
+#include "rational.h"
+
+Rational::Rational() {
+}
+Rational::Rational(int64_t num, int64_t den) {
+    if (num != 0) {
+        numer_ = num;
+        denom_ = den;
+    } else {
+        numer_ = num;
+        denom_ = 1;
+    }
+    if (den == 0) {
+        throw RationalDivisionByZero{};
+    }
+    Set(numer_, denom_);
+}
+Rational::Rational(int64_t num) {
+    numer_ = num;
+    denom_ = 1;
+}
+int64_t Rational::GetNumerator() const {
+    return numer_;
+}
+int64_t Rational::GetDenominator() const {
+    return std::abs(denom_);
+}
+void Rational::SetNumerator(int64_t value) {
+    numer_ = value;
+}
+void Rational::SetDenominator(int64_t value) {
+    denom_ = value;
+}
+void Rational::Set(int64_t numer, int64_t denom) {
+    int64_t nod = std::min(std::abs(numer), std::abs(denom));
+    int64_t nod1 = std::max(std::abs(denom), std::abs(numer));
+    while (nod != 0) {
+        int64_t help = 0;
+        help = nod;
+        nod1 = nod1 % nod;
+        nod = help;
+        nod = nod1;
+        nod1 = help;
+    }
+    denom_ = denom_ / std::abs(nod1);
+    numer_ = numer_ / std::abs(nod1);
+}
+Rational& operator+=(Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.numer_ * rhs.denom_;
+    int64_t b = lhs.denom_ * rhs.numer_;
+    Rational ans(a + b, rhs.denom_ * lhs.denom_);
+    lhs.numer_ = ans.numer_;
+    lhs.denom_ = ans.denom_;
+    return lhs;
+}
+Rational& operator*=(Rational& lhs, const Rational& rhs) {
+    if (rhs.GetDenominator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    } else {
+        int64_t a = lhs.numer_ * rhs.numer_;
+        int64_t b = lhs.denom_ * rhs.denom_;
+        Rational ans(a, b);
+        lhs.numer_ = ans.numer_;
+        lhs.denom_ = ans.denom_;
+        return lhs;
+    }
+}
+Rational& operator--(Rational& ratio) {
+    ratio.numer_ -= ratio.denom_;
+    return ratio;
+}
+Rational& operator++(Rational& ratio) {
+    ratio.numer_ += ratio.denom_;
+    return ratio;
+}
+std::istream& operator>>(std::istream& is, Rational& ratio) {
+    is >> ratio.numer_ >> ratio.denom_;
+    return is;
+}
+Rational& operator/=(Rational& lhs, const Rational& rhs) {
+    if (rhs.GetNumerator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int sigh = 1;
+    if (lhs.GetNumerator() * rhs.GetNumerator() < 0) {
+        sigh = -1;
+    }
+    int64_t a = std::abs(lhs.GetNumerator()) * std::abs(rhs.GetDenominator()) * sigh;
+    int64_t b = std::abs(lhs.GetDenominator()) * std::abs(rhs.GetNumerator());
+    Rational ans(a, b);
+    lhs.SetNumerator(ans.GetNumerator());
+    lhs.SetDenominator(ans.GetDenominator());
+    return lhs;
+}
+bool operator<(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a < b;
+}
+bool operator>(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a > b;
+}
+bool operator==(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a == b;
+}
+bool operator>=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a >= b;
+}
+bool operator<=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a <= b;
+}
+bool operator!=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a != b;
+}
+Rational operator+(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a + b, rhs.GetDenominator() * lhs.GetDenominator());
+    return ans;
+}
+Rational operator-(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a - b, rhs.GetDenominator() * lhs.GetDenominator());
+    return ans;
+}
+Rational operator--(Rational& ratio, int) {
+    ratio.SetNumerator(ratio.GetNumerator() - ratio.GetDenominator());
+    return ratio;
+}
+Rational operator++(Rational& ratio, int) {
+    ratio.SetNumerator(ratio.GetNumerator() + ratio.GetDenominator());
+    return ratio;
+}
+Rational operator*(const Rational& lhs, const Rational& rhs) {
+    if (rhs.GetDenominator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int64_t a = lhs.GetNumerator() * rhs.GetNumerator();
+    int64_t b = lhs.GetDenominator() * rhs.GetDenominator();
+    Rational ans(a, b);
+    return ans;
+}
+Rational operator/(const Rational& lhs, const Rational& rhs) {
+    if (rhs.GetNumerator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int sigh = 1;
+    if (lhs.GetNumerator() * rhs.GetNumerator() < 0) {
+        sigh = -1;
+    }
+    int64_t a = std::abs(lhs.GetNumerator()) * std::abs(rhs.GetDenominator()) * sigh;
+    int64_t b = std::abs(lhs.GetDenominator()) * std::abs(rhs.GetNumerator());
+    Rational ans(a, b);
+    return ans;
+}
+std::ostream& operator<<(std::ostream& os, const Rational& ratio) {
+    if (ratio.GetDenominator() != 1 && ratio.GetNumerator() != 0) {
+        os << ratio.GetNumerator() << "/" << ratio.GetDenominator();
+    } else {
+        os << ratio.GetNumerator();
+    }
+    return os;
+}
+Rational operator+(const Rational& ratio) {
+    return ratio;
+}
+Rational operator-(const Rational& ratio) {
+    Rational ans(-1 * ratio.GetNumerator(), ratio.GetDenominator());
+    return ans;
+}
+Rational& operator-=(Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a - b, lhs.GetDenominator() * rhs.GetDenominator());
+    lhs.SetNumerator(ans.GetNumerator());
+    lhs.SetDenominator(ans.GetDenominator());
+    return lhs;
+}
+```
+
+
+```C++
+#include <iostream>
+#include <cmath>
 
 class Rational {
 private:
