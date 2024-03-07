@@ -1,4 +1,98 @@
 ```
+#pragma once
+
+#include <string_view>
+#include <vector>
+#include <iostream>
+#include <cmath>
+#include <stdexcept>
+#include <numeric>
+#include <cstdint>
+
+class RationalDivisionByZero : public std::runtime_error {
+public:
+    RationalDivisionByZero() : std::runtime_error("RationalDivisionByZero") {
+    }
+};
+class Rational {
+public:
+    Rational();
+
+    Rational(size_t num);  // NOLINT
+
+    Rational(int64_t value);  // NOLINT
+
+    Rational(int num);  // NOLINT
+
+    Rational(double num);  // NOLINT
+
+    Rational(int64_t numer, int64_t denom);
+
+    int64_t GetNumerator() const;
+
+    int64_t GetDenominator() const;
+
+    void SetNumerator(int64_t value);
+
+    void SetDenominator(int64_t value);
+
+    friend Rational& operator+=(Rational& lhs, const Rational& rhs);
+
+    friend Rational& operator*=(Rational& lhs, const Rational& rhs);
+
+    friend Rational& operator++(Rational& ratio);  // faster than += 1
+
+    friend Rational& operator--(Rational& ratio);
+
+    friend std::istream& operator>>(std::istream& is, Rational& ratio);
+
+private:
+    void Set(int64_t numer, int64_t denom);
+
+    int64_t numer_;
+    int64_t denom_;
+};
+
+Rational operator+(const Rational& ratio);
+
+Rational operator-(const Rational& ratio);
+
+Rational& operator-=(Rational& lhs, const Rational& rhs);
+
+Rational& operator/=(Rational& lhs, const Rational& rhs);
+
+Rational operator+(const Rational& lhs, const Rational& rhs);
+
+Rational operator-(const Rational& lhs, const Rational& rhs);
+
+Rational operator*(const Rational& lhs, const Rational& rhs);
+
+Rational operator/(const Rational& lhs, const Rational& rhs);
+
+Rational operator++(Rational& ratio, int);
+
+Rational operator--(Rational& ratio, int);
+
+bool operator<(const Rational& lhs, const Rational& rhs);
+
+bool operator>(const Rational& lhs, const Rational& rhs);
+
+bool operator<=(const Rational& lhs, const Rational& rhs);
+
+bool operator>=(const Rational& lhs, const Rational& rhs);
+
+bool operator==(const Rational& lhs, const Rational& rhs);
+
+bool operator!=(const Rational& lhs, const Rational& rhs);
+
+std::ostream& operator<<(std::ostream& os, const Rational& ratio);
+
+std::vector<std::string_view> Search(std::string_view text, std::string_view query, size_t results_count);
+
+
+```
+
+```
 #include <bits/stdc++.h>
 #include "search.h"
 
