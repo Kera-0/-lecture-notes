@@ -1,3 +1,366 @@
+```
+#include <bits/stdc++.h>
+#include "search.h"
+
+void Rational::Set(int64_t numer, int64_t denom) {
+    int64_t nod = std::min(std::abs(numer), std::abs(denom));
+    int64_t nod1 = std::max(std::abs(denom), std::abs(numer));
+    while (nod != 0) {
+        int64_t help = 0;
+        help = nod;
+        nod1 = nod1 % nod;
+        nod = help;
+        nod = nod1;
+        nod1 = help;
+    }
+    denom_ = denom_ / std::abs(nod1);
+    numer_ = numer_ / std::abs(nod1);
+}
+Rational::Rational() {
+    numer_ = 0;
+    denom_ = 1;
+}
+Rational::Rational(int64_t num) {
+    numer_ = num;
+    denom_ = 1;
+}
+Rational::Rational(int num) {
+    numer_ = num;
+    denom_ = 1;
+}
+Rational::Rational(size_t num) {
+    numer_ = num;  // NOLINT
+    denom_ = 1;
+}
+Rational::Rational(double num) {
+    numer_ = round(num * 100000);  // NOLINT
+    denom_ = 100000;               // NOLINT
+}
+Rational::Rational(int64_t num, int64_t den) {
+    if (den == 0) {
+        throw RationalDivisionByZero{};
+    }
+    if (num != 0) {
+        if (den >= 0) {
+            numer_ = num;
+            denom_ = den;
+        } else {
+            numer_ = -num;
+            denom_ = -den;
+        }
+    } else {
+        numer_ = num;
+        denom_ = 1;
+    }
+    Set(numer_, denom_);
+}
+int64_t Rational::GetNumerator() const {
+    return numer_;
+}
+int64_t Rational::GetDenominator() const {
+    return denom_;
+}
+void Rational::SetNumerator(int64_t value) {
+    numer_ = value;
+    Set(numer_, denom_);
+}
+void Rational::SetDenominator(int64_t value) {
+    if (value == 0) {
+        throw RationalDivisionByZero{};
+    }
+    if (value < 0) {
+        denom_ = -value;
+        numer_ = -numer_;
+    } else {
+        denom_ = value;
+    }
+    Set(numer_, denom_);
+}
+Rational& operator+=(Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.numer_ * rhs.denom_;
+    int64_t b = lhs.denom_ * rhs.numer_;
+    Rational ans(a + b, rhs.denom_ * lhs.denom_);
+    lhs.numer_ = ans.numer_;
+    lhs.denom_ = ans.denom_;
+    return lhs;
+}
+Rational& operator*=(Rational& lhs, const Rational& rhs) {
+    if (rhs.GetDenominator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    } else {
+        int64_t a = lhs.numer_ * rhs.numer_;
+        int64_t b = lhs.denom_ * rhs.denom_;
+        Rational ans(a, b);
+        lhs.numer_ = ans.numer_;
+        lhs.denom_ = ans.denom_;
+        return lhs;
+    }
+}
+Rational& operator--(Rational& ratio) {
+    Rational ans(ratio.numer_ - ratio.denom_, ratio.denom_);
+    ratio.numer_ = ans.numer_;
+    ratio.denom_ = ans.denom_;
+    return ratio;
+}
+Rational& operator++(Rational& ratio) {
+    Rational ans(ratio.numer_ + ratio.denom_, ratio.denom_);
+    ratio.numer_ = ans.numer_;
+    ratio.denom_ = ans.denom_;
+    return ratio;
+}
+std::istream& operator>>(std::istream& is, Rational& ratio) {
+    std::string s;
+    is >> s;
+    std::string num;
+    std::string dem;
+    bool t = true;
+    for (auto& item : s) {
+        if (item == '/') {
+            t = false;
+        } else if (t == 1) {
+            num += item;
+        } else {
+            dem += item;
+        }
+    }
+    ratio.numer_ = stoll(num);
+    if (!dem.empty()) {
+        ratio.denom_ = stoll(dem);
+    } else {
+        ratio.denom_ = 1;
+    }
+    Rational ans(ratio.numer_, ratio.denom_);
+    ratio.numer_ = ans.numer_;
+    ratio.denom_ = ans.denom_;
+    return is;
+}
+Rational& operator/=(Rational& lhs, const Rational& rhs) {
+    if (rhs.GetNumerator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int sigh = 1;
+    if (lhs.GetNumerator() * rhs.GetNumerator() < 0) {
+        sigh = -1;
+    }
+    int64_t a = std::abs(lhs.GetNumerator()) * std::abs(rhs.GetDenominator()) * sigh;
+    int64_t b = std::abs(lhs.GetDenominator()) * std::abs(rhs.GetNumerator());
+    Rational ans(a, b);
+    lhs.SetNumerator(ans.GetNumerator());
+    lhs.SetDenominator(ans.GetDenominator());
+    return lhs;
+}
+bool operator<(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a < b;
+}
+bool operator>(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a > b;
+}
+bool operator==(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a == b;
+}
+bool operator>=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a >= b;
+}
+bool operator<=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a <= b;
+}
+bool operator!=(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    return a != b;
+}
+Rational operator+(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a + b, rhs.GetDenominator() * lhs.GetDenominator());
+    return ans;
+}
+Rational operator-(const Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a - b, rhs.GetDenominator() * lhs.GetDenominator());
+    return ans;
+}
+Rational operator--(Rational& ratio, int) {
+    Rational ans(ratio.GetNumerator(), ratio.GetDenominator());
+    --ratio;
+    return ans;
+}
+Rational operator++(Rational& ratio, int) {
+    Rational ans(ratio.GetNumerator(), ratio.GetDenominator());
+    ++ratio;
+    return ans;
+}
+Rational operator*(const Rational& lhs, const Rational& rhs) {
+    if (rhs.GetDenominator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int64_t a = lhs.GetNumerator() * rhs.GetNumerator();
+    int64_t b = lhs.GetDenominator() * rhs.GetDenominator();
+    Rational ans(a, b);
+    return ans;
+}
+Rational operator/(const Rational& lhs, const Rational& rhs) {
+    if (rhs.GetNumerator() == 0 || lhs.GetDenominator() == 0) {
+        throw RationalDivisionByZero{};
+    }
+    int sigh = 1;
+    if (lhs.GetNumerator() * rhs.GetNumerator() < 0) {
+        sigh = -1;
+    }
+    int64_t a = std::abs(lhs.GetNumerator()) * std::abs(rhs.GetDenominator()) * sigh;
+    int64_t b = std::abs(lhs.GetDenominator()) * std::abs(rhs.GetNumerator());
+    Rational ans(a, b);
+    return ans;
+}
+std::ostream& operator<<(std::ostream& os, const Rational& ratio) {
+    if (ratio.GetDenominator() != 1 && ratio.GetNumerator() != 0) {
+        os << ratio.GetNumerator() << "/" << ratio.GetDenominator();
+    } else {
+        os << ratio.GetNumerator();
+    }
+    return os;
+}
+Rational operator+(const Rational& ratio) {
+    Rational ans(ratio.GetNumerator(), ratio.GetDenominator());
+    return ans;
+}
+Rational operator-(const Rational& ratio) {
+    Rational ans(-1 * ratio.GetNumerator(), ratio.GetDenominator());
+    return ans;
+}
+Rational& operator-=(Rational& lhs, const Rational& rhs) {
+    int64_t a = lhs.GetNumerator() * rhs.GetDenominator();
+    int64_t b = lhs.GetDenominator() * rhs.GetNumerator();
+    Rational ans(a - b, lhs.GetDenominator() * rhs.GetDenominator());
+    lhs.SetNumerator(ans.GetNumerator());
+    lhs.SetDenominator(ans.GetDenominator());
+    return lhs;
+}
+using Sentence = std::vector<std::pair<std::string, const char*>>;
+std::unordered_map<std::string, int> SenIntoWords(std::string& s) {
+    std::unordered_map<char, char> upper_to_lower;
+    for (char i = 65; i < 91; ++i) {  // NOLINT
+        upper_to_lower[i] = i + 32;   // NOLINT
+    }
+    std::string word;
+    std::unordered_map<std::string, int> stoke;
+    for (auto& item : s) {
+        if (isalpha(item)) {
+            if (isupper(item)) {
+                word += upper_to_lower[item];
+            } else {
+                word += item;
+            }
+        } else {
+            if (!empty(word)) {
+                stoke[word] += 1;
+                word = "";
+            }
+        }
+    }
+    if (!empty(word)) {
+        stoke[word]++;
+    }
+    return stoke;
+};
+std::vector<std::pair<std::string, const char*>> TextToSen(std::string_view& s) {
+    std::string sen;
+    std::vector<std::pair<std::string, const char*>> k;
+    const char* ptr = s.begin();
+    const char* begin_of_sen = s.begin();
+    while (ptr != s.end()) {
+        if (*ptr != '\n') {
+            sen += *ptr;
+        } else {
+            auto w = std::make_pair(sen, begin_of_sen);
+            k.push_back(w);
+            sen = "";
+            if (ptr + 1 != s.end()) {
+                begin_of_sen = ptr + 1;
+            }
+        }
+        ptr++;
+    }
+    if (!empty(sen)) {
+        auto w = std::make_pair(sen, begin_of_sen);
+        k.push_back(w);
+    }
+    return k;
+}
+void Sort(std::vector<std::vector<Rational>>& s) {
+    for (size_t i = 0; i < s.size(); ++i) {
+        for (size_t j = 0; j < s.size() - 1; ++j) {
+            if (s[j][0] < s[j + 1][0]) {
+                swap(s[j], s[j + 1]);
+            }
+        }
+    }
+}
+std::vector<std::string_view> Search(std::string_view text, std::string_view query, size_t results_count) {
+    std::vector<std::unordered_map<std::string, int>> text_words;
+    Sentence main_text = TextToSen(text);
+    Sentence query_sen = TextToSen(query);
+    std::string new_query = query_sen[0].first;
+    std::unordered_map<std::string, int> words_to_search = SenIntoWords(new_query);
+    std::vector<std::vector<Rational>> sort_search_words;
+    for (size_t i = 0; i < main_text.size(); ++i) {  // NOLINT
+        text_words.push_back(SenIntoWords(main_text[i].first));
+        sort_search_words.push_back({0, i});
+    }
+    for (auto& item : words_to_search) {
+        words_to_search[item.first] = 0;
+    }
+    std::vector<int64_t> ct;
+    for (size_t i = 0; i < text_words.size(); ++i) {
+        int64_t count = 0;
+        for (auto& item : text_words[i]) {
+            count += item.second;
+        }
+        ct.push_back(count);
+    }
+    for (auto& item : words_to_search) {
+        for (size_t i = 0; i < text_words.size(); ++i) {
+            if (text_words[i].contains(item.first)) {
+                ++words_to_search[item.first];
+            }
+        }
+        Rational p;
+        if (words_to_search[item.first] != 0) {
+            Rational s1 = log2((float)main_text.size() / words_to_search[item.first]);  // NOLINT
+            p = s1;
+        }
+        for (size_t i = 0; i < text_words.size(); ++i) {  // NOLINT
+            if (text_words[i].contains(item.first)) {
+                sort_search_words[i][0] += p * Rational(text_words[i][item.first], ct[i]);  // NOLINT
+            }
+        }
+    }
+    Sort(sort_search_words);
+    std::vector<std::string_view> search_verdict;
+    for (size_t i = 0; i < sort_search_words.size(); ++i) {
+        if (results_count > 0 && sort_search_words[i][0] > 0) {
+            std::string_view current_string(main_text[sort_search_words[i][1].GetNumerator()].second,
+                                            main_text[sort_search_words[i][1].GetNumerator()].first.size());
+            search_verdict.push_back(current_string);
+            results_count--;
+        }
+    }
+    return search_verdict;
+}
+```
+
+
 ```C++
 void Rational::Set(int64_t numer, int64_t denom) {
     int64_t nod = std::min(std::abs(numer), std::abs(denom));
