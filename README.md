@@ -1,3 +1,30 @@
+``` C++
+EdgeFilter::EdgeFilter(int max_color) {
+    max_color_ = max_color;
+}
+Image EdgeFilter::Apply(const Image& img) const {
+    std::vector<std::vector<Color>> new_data;
+    std::vector<std::vector<int>> matrix = {{0, -1, 0}, {-1, 4, -1}, {0, -1, 0}};  // NOLINT
+    for (size_t i = 0; i < img.GetHeight(); ++i) {
+        std::vector<Color> row(img.GetWidth());
+        for (size_t j = 0; j < img.GetWidth(); ++j) {
+            std::vector<int> colors = GetPixColor(matrix, img, j, i);  // NOLINT
+            if (colors[2] > max_color_) {
+                row[j].blue = 255;   // NOLINT
+                row[j].green = 255;  // NOLINT
+                row[j].red = 255;    // NOLINT
+            } else {
+                row[j].blue = 0;   // NOLINT
+                row[j].green = 0;  // NOLINT
+                row[j].red = 0;
+            }
+        }
+        new_data.push_back(row);
+    }
+    return {new_data};
+}
+```
+
 <h3>ыывывы</h3>
   <details><summary>счсч</summary>
     <li><a href="https://disk.yandex.ru/d/zl7DgU7FmuJKLg/%D0%94%D0%B8%D1%81%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%20(%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%BF%D0%BE%D1%82%D0%BE%D0%BA)/9_01_24_%D0%92%D1%8F%D0%BB%D1%8B%D0%B8%CC%86.MP4">1(+)</a></li>
