@@ -1,4 +1,16 @@
 ``` C++
+class EdgeFilter : public Filter {
+public:
+    explicit EdgeFilter(int max_color);
+    Image Apply(const Image& img) const override;
+
+private:
+    int max_color_;
+};
+```
+
+
+``` C++
 EdgeFilter::EdgeFilter(int max_color) {
     max_color_ = max_color;
 }
